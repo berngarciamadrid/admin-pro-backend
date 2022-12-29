@@ -10,6 +10,9 @@ const app = express();
 // Configurar CORS
 app.use(cors());
 
+// Lectura y Parser del body
+app.use(express.json());
+
 // Base de datos
 dbConnection();
 
@@ -17,13 +20,10 @@ dbConnection();
 // mean_user_angular_curso
 
 // Rutas
-app.get( '/', (req, res)=> {
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/login', require('./routes/auth'));
 
-    res.json({
-        ok: true,
-        msg: 'Hola Mundo'
-    })
-});
+
 
 app.listen( process.env.PORT, () => {
     console.log('Servidor corriendo en puerto', process.env.PORT);
